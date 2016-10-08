@@ -2,6 +2,19 @@ import {List, Map} from 'immutable';
 import {expect} from 'chai';
 import {setEntries, next, vote} from '../src/core';
 
+/*
+// Test Scaffolding
+it('', () => {
+    const state = Map({
+
+    });
+    const nextState = _();
+    expect(nextState).to.equal(Map({
+
+    }));
+});
+//*/
+
 describe('application logic', () => {
     
     describe('setEntries', () => {
@@ -39,6 +52,47 @@ describe('application logic', () => {
                 entries: List.of('Sunshine')
             }));
         });
+
+        it('moves the vote to the next pair with the winner advancing', () => {
+            const state = Map({
+                vote: Map({
+                    pair: List.of('Trainspotting', '28 Days Later'),
+                    tally: Map({
+                        'Trainspotting': 4,
+                        '28 Days Later': 3
+                    })
+                }),
+                entries: List.of('Sunshine', 'Millions', '127 Hours')
+            });
+            const nextState = next(state);
+            expect(nextState).to.equal(Map({
+                vote: Map({
+                    pair: List.of('Sunshine', 'Millions'),
+                }),
+                entries: List.of('127 Hours', 'Trainspotting')
+            }));
+        });
+
+        it('moves both back to entries on a tie', () => {
+            const state = Map({
+                vote: Map({
+                    pair: List.of('Trainspotting', '28 Days Later'),
+                    tally: Map({
+                        'Trainspotting': 3,
+                        '28 Days Later': 3
+                    })
+                }),
+                entries: List.of('Sunshine', 'Millions', '127 Hours')
+            });
+            const nextState = next(state);
+            expect(nextState).to.equal(Map({
+                vote: Map({
+                    pair: List.of('Sunshine', 'Millions'),
+                }),
+                entries: List.of('127 Hours', 'Trainspotting', '28 Days Later')
+            }));
+        });
+
     });
 
     describe('vote', () => {
