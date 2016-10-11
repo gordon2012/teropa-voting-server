@@ -3,19 +3,6 @@ import {expect} from 'chai';
 
 import reducer from '../src/reducer';
 
-/*
-// Test Scaffolding
-it('', () => {
-    const state = Map({
-
-    });
-    const nextState = _();
-    expect(nextState).to.equal(Map({
-
-    }));
-});
-//*/
-
 describe('reducer', () => {
 
     it('handles SET_ENTRIES', () => {

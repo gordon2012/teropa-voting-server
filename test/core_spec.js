@@ -2,19 +2,6 @@ import {List, Map} from 'immutable';
 import {expect} from 'chai';
 import {setEntries, next, vote} from '../src/core';
 
-/*
-// Test Scaffolding
-it('', () => {
-    const state = Map({
-
-    });
-    const nextState = _();
-    expect(nextState).to.equal(Map({
-
-    }));
-});
-//*/
-
 describe('application logic', () => {
     
     describe('setEntries', () => {
@@ -116,44 +103,32 @@ describe('application logic', () => {
 
         it('creates a tally for the voted entry', () => {
             const state = Map({
-                vote: Map({
-                    pair: List.of('Trainspotting', '28 Days Later')
-                }),
-                entries: List()
+                pair: List.of('Trainspotting', '28 Days Later')
             });
             const nextState = vote(state, 'Trainspotting');
             expect(nextState).to.equal(Map({
-                vote: Map({
-                    pair: List.of('Trainspotting', '28 Days Later'),
-                    tally: Map({
-                        'Trainspotting': 1
-                    })
-                }),
-                entries: List()
+                pair: List.of('Trainspotting', '28 Days Later'),
+                tally: Map({
+                    'Trainspotting': 1
+                })
             }));
         });
 
         it('adds to a an existing tally for the voted entry', () => {
             const state = Map({
-                vote: Map({
-                    pair: List.of('Trainspotting', '28 Days Later'),
-                    tally: Map({
-                        'Trainspotting': 2,
-                        '28 Days Later': 1
-                    })
-                }),
-                entries: List()
+                pair: List.of('Trainspotting', '28 Days Later'),
+                tally: Map({
+                    'Trainspotting': 2,
+                    '28 Days Later': 1
+                })
             });
             const nextState = vote(state, 'Trainspotting');
             expect(nextState).to.equal(Map({
-                vote: Map({
-                    pair: List.of('Trainspotting', '28 Days Later'),
-                    tally: Map({
-                        'Trainspotting': 3,
-                        '28 Days Later': 1
-                    })
-                }),
-                entries: List()
+                pair: List.of('Trainspotting', '28 Days Later'),
+                tally: Map({
+                    'Trainspotting': 3,
+                    '28 Days Later': 1
+                })
             }));
         });
 
